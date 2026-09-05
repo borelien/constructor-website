@@ -27,12 +27,18 @@ python3 -m http.server 8000 -d public
 
 ## Deploy
 
-Netlify, configured by `netlify.toml` (publish dir `public`, no build command).
+GitHub Pages, from `.github/workflows/pages.yml`: every push to `main` uploads `public/` as-is. Enable once in the
+repository settings (Pages → Source → GitHub Actions), or `gh api -X POST repos/<owner>/<repo>/pages -f build_type=workflow`.
+
+For the custom domain, add a `public/CNAME` file containing the domain and point DNS at GitHub Pages (four A records
+for the apex, a CNAME for `www`), then set the domain under Pages → Custom domain and enforce HTTPS.
+
+`netlify.toml` is kept so the same folder deploys unchanged on Netlify if that is ever preferred.
 
 ## Editing content
 
 - **Sentence** — the `.tagline` paragraph in `index.html`. Mirror it in the `description` metas, the Open Graph tags and the JSON-LD block, then regenerate `og-image.png` from `tools/og.html`.
-- **Domain** — `https://constructor.xyz/` in `index.html`, `robots.txt`, `sitemap.xml`.
+- **Domain** — `https://constructor.art/` in `index.html`, `robots.txt`, `sitemap.xml`.
 - **Type scale** — one unit `--u` (the address size) and the golden ratio `--phi`; the sentence, brand, margins and page padding are powers of φ from it, at the top of `styles.css`.
 - **Colors** — `--bg`, `--ink`, `--dim` at the top of `styles.css`, plus the `theme-color` meta and `site.webmanifest`.
 - **Spectrum** — `--spectrum` in `styles.css` is the visible range 380–700 nm as sRGB stops (CIE 1931 fit); `--pulse` wraps it in ink so it can slide through the word. The beat is .9 s and ends the instant the word is black again, so a new press lands right away; the hold transition is .5 s; both off under `prefers-reduced-motion`.
