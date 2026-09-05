@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://constructor.xyz/sitemap.xml
+Sitemap: https://constructor.art/sitemap.xml
