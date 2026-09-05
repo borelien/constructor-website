@@ -1,0 +1,110 @@
+/* constructor — one page, two lines.
+   Type: IBM Plex Sans (self-hosted). Colors: light grey ground, black type. The brand carries the visible spectrum, once on arrival and when pressed. One scheme, no boxes, no rules. */
+
+@font-face {
+  font-family: "IBM Plex Sans";
+  src: url("/fonts/ibm-plex-sans-regular.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Sans";
+  src: url("/fonts/ibm-plex-sans-semi-bold.woff2") format("woff2");
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+
+:root {
+  --bg: #e4e4e4;
+  --ink: #000000;
+  --dim: #5c5c5c;                        /* contact address — 5.9:1 on the grey */
+  --sans: "IBM Plex Sans", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+
+  /* the golden ratio, all the way down: one unit, and every size and gap on the page is a power of φ from it */
+  --phi: 1.618;
+  --u: clamp(13px, 12px + 0.35vw, 15px);              /* the address */
+  --u1: calc(var(--u) * var(--phi));                   /* the sentence   ≈ 24px */
+  --u2: calc(var(--u) * var(--phi) * var(--phi));      /* the brand      ≈ 39px */
+  --u3: calc(var(--u2) * var(--phi));                  /* top of page    ≈ 64px */
+  --u-1: calc(var(--u) / var(--phi));                  /* brand → sentence ≈ 9px */
+
+  /* the one colour on the page: the visible spectrum, 380–700 nm (CIE 1931 fit, sRGB) */
+  --spectrum: linear-gradient(90deg, #002a95 0.00%, #0025a7 1.56%, #000ab7 3.12%, #0000c6 4.69%, #4000d3 6.25%, #6b00df 7.81%, #7c00ea 9.38%, #7c00f5 10.94%, #7400ff 12.50%, #6800ff 14.06%, #6100ff 15.62%, #6400ff 17.19%, #6a00ff 18.75%, #6300ff 20.31%, #5600ff 21.88%, #3e00ff 23.44%, #0000ff 25.00%, #0000ff 26.56%, #002dff 28.12%, #005bff 29.69%, #0085ff 31.25%, #00b5ff 32.81%, #00eeff 34.38%, #00ffd2 35.94%, #00ffa0 37.50%, #00ff75 39.06%, #00ff4a 40.62%, #00ff07 42.19%, #00ff00 43.75%, #00ff00 45.31%, #00ff00 46.88%, #00ff00 48.44%, #00ff00 50.00%, #00ff00 51.56%, #00ff00 53.12%, #5aff00 54.69%, #9dff00 56.25%, #d0ff00 57.81%, #fffe00 59.38%, #ffd500 60.94%, #ffb300 62.50%, #ff9700 64.06%, #ff7d00 65.62%, #ff6400 67.19%, #ff4a00 68.75%, #ff2900 70.31%, #ff0000 71.88%, #ff0000 73.44%, #ff0000 75.00%, #ff0000 76.56%, #ff0000 78.12%, #ff0000 79.69%, #ff0000 81.25%, #ff0000 82.81%, #f80000 84.38%, #f00000 85.94%, #e80000 87.50%, #e00000 89.06%, #d70000 90.62%, #ce0000 92.19%, #c40000 93.75%, #ba2000 95.31%, #af3200 96.88%, #a23f00 98.44%, #954900 100.00%);
+  /* the pulse: ink, the spectrum, ink — one image, four times the width of the word, slid across it */
+  --pulse: linear-gradient(90deg, var(--ink) 0 35%, #002a95 37.50%, #0025a7 37.89%, #000ab7 38.28%, #0000c6 38.67%, #4000d3 39.06%, #6b00df 39.45%, #7c00ea 39.84%, #7c00f5 40.23%, #7400ff 40.62%, #6800ff 41.02%, #6100ff 41.41%, #6400ff 41.80%, #6a00ff 42.19%, #6300ff 42.58%, #5600ff 42.97%, #3e00ff 43.36%, #0000ff 43.75%, #0000ff 44.14%, #002dff 44.53%, #005bff 44.92%, #0085ff 45.31%, #00b5ff 45.70%, #00eeff 46.09%, #00ffd2 46.48%, #00ffa0 46.88%, #00ff75 47.27%, #00ff4a 47.66%, #00ff07 48.05%, #00ff00 48.44%, #00ff00 48.83%, #00ff00 49.22%, #00ff00 49.61%, #00ff00 50.00%, #00ff00 50.39%, #00ff00 50.78%, #5aff00 51.17%, #9dff00 51.56%, #d0ff00 51.95%, #fffe00 52.34%, #ffd500 52.73%, #ffb300 53.12%, #ff9700 53.52%, #ff7d00 53.91%, #ff6400 54.30%, #ff4a00 54.69%, #ff2900 55.08%, #ff0000 55.47%, #ff0000 55.86%, #ff0000 56.25%, #ff0000 56.64%, #ff0000 57.03%, #ff0000 57.42%, #ff0000 57.81%, #ff0000 58.20%, #f80000 58.59%, #f00000 58.98%, #e80000 59.38%, #e00000 59.77%, #d70000 60.16%, #ce0000 60.55%, #c40000 60.94%, #ba2000 61.33%, #af3200 61.72%, #a23f00 62.11%, #954900 62.50%, var(--ink) 65% 100%);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; color-scheme: light; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--ink);
+  font: 400 var(--u)/var(--phi) var(--sans);
+  font-feature-settings: "kern";
+  text-transform: lowercase;             /* the page reads lowercase; markup keeps real casing */
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: var(--u3) var(--u1) var(--u3);
+}
+
+h1, p { margin: 0; }
+
+/* the brand — a button, styled as the word it is. Black. A pulse slides the spectrum through it once on
+   arrival and whenever it is pressed; held down, it stays lit at the peak, and falls back to black on release. */
+
+h1 button {
+  appearance: none; -webkit-appearance: none;
+  display: inline-block; padding: 0 .04em 0 0; margin: 0; border: 0;
+  font: inherit; letter-spacing: inherit; line-height: inherit; text-transform: inherit;
+  cursor: pointer; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; touch-action: manipulation;
+  color: transparent; -webkit-text-fill-color: transparent;
+  background: var(--pulse) 0 0 / 400% 100%;
+  -webkit-background-clip: text; background-clip: text;
+}
+h1 button.lit { background-position: 50% 0; }
+h1 button.beat { animation: beat .9s cubic-bezier(.3, 0, .7, 1) 1; }
+@keyframes beat { from { background-position: 0 0; } to { background-position: 86.7% 0; } }   /* 86.7%: the word has just gone black again */
+@media (prefers-reduced-motion: no-preference) {
+  h1 button { transition: background-position .5s cubic-bezier(.45, 0, .2, 1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  h1 button.beat { animation: none; }
+}
+h1 button:focus-visible { outline: 2px solid var(--dim); outline-offset: 6px; border-radius: 2px; }
+
+h1 {
+  font-size: var(--u2);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--u-1);
+}
+
+.tagline {
+  font-size: var(--u1);
+  line-height: 1.272;                    /* √φ */
+  max-width: 40rem;
+}
+
+.contact {
+  margin-top: var(--u1);
+  font-size: var(--u);
+  color: var(--dim);
+}
+.contact a { color: inherit; text-decoration: none; }
+.contact a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.contact a:focus-visible { outline: 2px solid var(--dim); outline-offset: 3px; border-radius: 2px; }
+
+@media (max-width: 40rem) {
+  main { padding: var(--u2) var(--u) var(--u3); }
+}
+
+@media print {
+  body { background: #fff; }
+}

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>constructor</title>
+  <meta name="description" content="accelerating civilization.">
+  <link rel="canonical" href="https://constructor.xyz/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="constructor">
+  <meta property="og:title" content="constructor">
+  <meta property="og:description" content="accelerating civilization.">
+  <meta property="og:url" content="https://constructor.xyz/">
+  <meta property="og:image" content="https://constructor.xyz/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="constructor — accelerating civilization.">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="constructor">
+  <meta name="twitter:description" content="accelerating civilization.">
+  <meta name="twitter:image" content="https://constructor.xyz/og-image.png">
+  <meta name="twitter:image:alt" content="constructor — accelerating civilization.">
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#e4e4e4">
+  <meta name="color-scheme" content="light">
+
+  <link rel="preload" href="/fonts/ibm-plex-sans-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/ibm-plex-sans-semi-bold.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/styles.css">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://constructor.xyz/#organization",
+      "name": "constructor",
+      "url": "https://constructor.xyz/",
+      "logo": "https://constructor.xyz/android-chrome-512x512.png",
+      "description": "accelerating civilization.",
+      "email": "contact@constructor.xyz"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://constructor.xyz/#website",
+      "url": "https://constructor.xyz/",
+      "name": "constructor",
+      "description": "accelerating civilization.",
+      "publisher": { "@id": "https://constructor.xyz/#organization" },
+      "inLanguage": "en"
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+<main>
+
+<h1><button type="button" id="brand" aria-label="constructor. press to see the spectrum">constructor</button></h1>
+<p class="tagline">accelerating civilization.</p>
+<p class="contact"><a href="mailto:contact@constructor.xyz">contact@constructor.xyz</a></p>
+
+</main>
+
+<script>
+(function () {
+  /* ---- the brand beats once, a second after arrival. After that only by hand: a tap is one beat, a hold
+          keeps the word lit at the peak of the spectrum until it is let go. While a beat runs, presses do nothing. ---- */
+  var btn = document.getElementById("brand"), down = 0, busy = false,
+      still = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!btn) return;
+  function beat() {                       /* one beat at a time: nothing lands while one is running */
+    if (busy || still) return;            /* (with reduced motion there is no animation to end, so no beat) */
+    busy = true; btn.classList.remove("lit"); btn.classList.add("beat");
+  }
+  btn.addEventListener("animationend", function () { btn.classList.remove("beat"); busy = false; });
+  btn.addEventListener("pointerdown", function (e) {
+    if (e.button || busy) return;
+    down = Date.now(); btn.classList.add("lit");
+  });
+  function release() {
+    if (!down) return;
+    var held = Date.now() - down > 250; down = 0;
+    if (held) btn.classList.remove("lit"); else beat();
+  }
+  btn.addEventListener("pointerup", release);
+  btn.addEventListener("pointercancel", release);
+  btn.addEventListener("pointerleave", function () { if (down) { down = 0; btn.classList.remove("lit"); } });
+  btn.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); beat(); } });
+  setTimeout(beat, 1000);
+})();
+</script>
+</body>
+</html>
